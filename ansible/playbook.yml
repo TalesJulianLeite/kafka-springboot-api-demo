@@ -1,0 +1,11 @@
+- name: Executar docker-compose da aplicação Spring Boot
+  hosts: local
+  become: true
+  tasks:
+    - name: Incluir tarefas para garantir que Docker está instalado
+      include_role:
+        name: docker
+
+    - name: Subir a stack com docker-compose
+      community.docker.docker_compose:
+        project_src: "{{ playbook_dir }}/../"

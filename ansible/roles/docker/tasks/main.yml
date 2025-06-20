@@ -1,0 +1,12 @@
+- name: Instalar dependências do sistema
+  apt:
+    name: 
+      - docker.io
+      - docker-compose
+      - python3-pip
+    update_cache: yes
+    state: present
+
+- name: Instalar dependência python do Ansible Docker
+  pip:
+    name: docker-compose
