@@ -1,6 +1,15 @@
 # Compiled class file
 *.class
 
+# Ignorar pasta do IntelliJ IDEA
+.idea/
+
+# Ignorar pasta de build Maven
+target/
+
+# Caso você tenha usado ".target" por engano e ela exista
+.target/
+
 # Log file
 *.log
 
