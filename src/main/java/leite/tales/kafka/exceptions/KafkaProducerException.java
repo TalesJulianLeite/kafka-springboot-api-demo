@@ -1,4 +1,4 @@
-package leite.tales.kafka.exception;
+package leite.tales.kafka.exceptions;
 
 public class KafkaProducerException extends RuntimeException {
 

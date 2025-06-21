@@ -1,6 +1,6 @@
-package leite.tales.kafka.service.consumers;
+package leite.tales.kafka.services.consumers;
 
-import leite.tales.kafka.exception.KafkaConsumerException;
+import leite.tales.kafka.exceptions.KafkaConsumerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;

@@ -1,7 +1,7 @@
-package leite.tales.kafka.controller.handle;
+package leite.tales.kafka.controllers.handle;
 
-import leite.tales.kafka.exception.KafkaConsumerException;
-import leite.tales.kafka.exception.KafkaProducerException;
+import leite.tales.kafka.exceptions.KafkaConsumerException;
+import leite.tales.kafka.exceptions.KafkaProducerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

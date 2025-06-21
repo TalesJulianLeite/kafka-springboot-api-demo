@@ -1,6 +1,6 @@
-package leite.tales.kafka.controller;
+package leite.tales.kafka.controllers;
 
-import leite.tales.kafka.service.producers.KafkaProducerService;
+import leite.tales.kafka.services.producers.KafkaProducerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

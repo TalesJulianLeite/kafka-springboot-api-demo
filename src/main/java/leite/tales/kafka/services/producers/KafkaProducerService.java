@@ -1,4 +1,4 @@
-package leite.tales.kafka.service.producers;
+package leite.tales.kafka.services.producers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
