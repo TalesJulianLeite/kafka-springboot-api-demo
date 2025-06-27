@@ -1,6 +1,8 @@
 package leite.tales.kafka.controllers;
 
-
+import io.github.resilience4j.circuitbreaker.CircuitBreaker;
+import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
+import leite.tales.kafka.exceptions.KafkaConsumerException;
 import leite.tales.kafka.services.consumers.KafkaConsumerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
-import org.springframework.retry.annotation.CircuitBreaker;
 
 import java.time.Duration;
 
@@ -38,7 +39,7 @@ class KafkaControllerConsumerTest {
 
         circuitBreaker = CircuitBreaker.of("kafkaConsumer", config);
         controller = new KafkaControllerConsumer();
-        controller.listener = consumerService;
+        controller.setListener(consumerService);
     }
 
     @Test
