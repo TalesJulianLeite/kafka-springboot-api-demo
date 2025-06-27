@@ -12,10 +12,6 @@ public class KafkaControllerProducer {
 
     private KafkaProducerService producerService;
 
-    public void KafkaProducerController(KafkaProducerService producerService) {
-        this.producerService = producerService;
-    }
-
     public KafkaControllerProducer(KafkaProducerService producerService) {
         this.producerService = producerService;
     }
