@@ -1,45 +1,52 @@
-plugins {
-    id 'java'
-    id 'org.springframework.boot' version '3.2.0'
-    id 'io.spring.dependency-management' version '1.1.4'
-}
+    plugins {
+        id 'java'
+        id 'org.springframework.boot' version '3.2.0'
+        id 'io.spring.dependency-management' version '1.1.4'
+    }
 
-group = 'leite.tales.kafka'
-version = '1.0-SNAPSHOT'
-description = 'Exemplo Kafka com Spring Boot'
+    group = 'leite.tales.kafka'
+    version = '1.0-SNAPSHOT'
+    description = 'Exemplo Kafka com Spring Boot'
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(21))
+        }
+    }
 
-repositories {
-    mavenCentral()
-}
+    repositories {
+        mavenCentral()
+    }
 
-ext {
-    kafkaVersion = '3.6.1'
-    springKafkaVersion = '3.1.1'
-    lombokVersion = '1.18.30'
-    resilience4jVersion = '1.7.1'
-}
+    ext {
+        kafkaVersion = '3.6.1'
+        springKafkaVersion = '3.1.1'
+        lombokVersion = '1.18.30'
+        resilience4jVersion = '1.7.1'
+    }
 
-dependencies {
-    implementation "org.springframework.boot:spring-boot-starter"
-    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
-    implementation "org.springframework.boot:spring-boot-starter-web"
-    implementation "org.apache.kafka:kafka-streams:${kafkaVersion}"
-    implementation "org.springframework.kafka:spring-kafka:${springKafkaVersion}"
-    implementation "io.github.resilience4j:resilience4j-circuitbreaker:${resilience4jVersion}"
-    implementation "io.github.resilience4j:resilience4j-spring-boot2:${resilience4jVersion}"
+    dependencies {
+        implementation "org.springframework.boot:spring-boot-starter"
+        implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+        implementation "org.springframework.boot:spring-boot-starter-web"
+        implementation "org.apache.kafka:kafka-streams:${kafkaVersion}"
+        implementation "org.springframework.kafka:spring-kafka:${springKafkaVersion}"
+        implementation "io.github.resilience4j:resilience4j-circuitbreaker:${resilience4jVersion}"
+        implementation "io.github.resilience4j:resilience4j-spring-boot2:${resilience4jVersion}"
 
-    testImplementation 'org.mockito:mockito-core:4.0.0'
+        runtimeOnly "org.springframework.boot:spring-boot-devtools"
 
-    runtimeOnly "org.springframework.boot:spring-boot-devtools"
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 
-    compileOnly "org.projectlombok:lombok:${lombokVersion}"
-    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+        testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+        testImplementation 'org.mockito:mockito-core:5.6.0'
+        testImplementation 'org.mockito:mockito-junit-jupiter:5.6.0'
+        testImplementation 'org.assertj:assertj-core:3.24.2'
+    }
 
-    testImplementation "org.springframework.boot:spring-boot-starter-test"
-    testImplementation "org.springframework.kafka:spring-kafka-test:${springKafkaVersion}"
-}
+    tasks.test {
+        useJUnitPlatform()
+        jvmArgs("--enable-preview")  // Se estiver usando features preview do JDK 21
+    }
