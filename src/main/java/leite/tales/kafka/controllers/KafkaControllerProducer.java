@@ -33,16 +33,4 @@ public class KafkaControllerProducer {
                     return null;
                 });
     }
-
-    @PostMapping("/send-async")
-    public CompletableFuture<Void> sendMessageAsyncWithCallback(@RequestBody String message) {
-        // Using with callback
-        return producerService.sendMessageWithCallback("my message", (result, ex) -> {
-            if (ex != null) {
-                // handle error
-            } else {
-                // handle success
-            }
-        });
-    }
 }
