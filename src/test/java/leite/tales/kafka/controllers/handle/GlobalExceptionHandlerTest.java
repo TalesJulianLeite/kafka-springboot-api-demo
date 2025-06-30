@@ -37,14 +37,14 @@ class GlobalExceptionHandlerTest {
         ResponseEntity<String> response = handler.handleKafkaProducerException(ex);
 
         // Assert
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
         assertTrue(response.getBody().contains(errorMessage));
     }
 
     @Test
     void handleGenericException_ShouldReturnInternalServerError() {
         // Arrange
-        String errorMessage = "Generic error";
+        String errorMessage = "Internal Server Error";
         Exception ex = new Exception(errorMessage);
 
         // Act

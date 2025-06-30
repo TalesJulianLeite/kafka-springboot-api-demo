@@ -1,17 +1,75 @@
 spring:
-  autoconfigure:
-    exclude:
-      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  application:
+    name: kafka-springboot-api-demo
 
+server:
+  port: 8081  # Custom port (e.g., 8081, 9000, etc.)
+# Dev Environment
+spring:
+  config:
+    activate:
+      on-profile: dev # Override for 'dev' profile
+spring:
   kafka:
     bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
     consumer:
       group-id: meu-grupo
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      enable-auto-commit: false
+      fetch-max-wait: 5000
+      fetch-min-size: 1
+      max.poll.interval.ms: 300000     # 5 minutos
+      max.poll.records: 500
+      properties:
+        # Configurações genéricas para todos os consumidores
+        spring.json.trusted.packages: "*"  # Permite desserialização de qualquer pacote
+        spring.json.value.default.type: leite.tales  # Entidade base (opcional)
+        session.timeout.ms: 30000 # Timeout de sessão
+        spring.json.trusted.packages: "*" # Packages confiáveis
+        heartbeat.interval.ms: 10000 # Configuração crucial do Kafka que define o intervalo de tempo (em milissegundos)
+                                      # entre os "batimentos cardíacos" que um consumidor envia ao broker Kafka
+                                      # para indicar que está ativo e saudável.
+
+
+    # Configurações específicas de desserialização (opcional)
+    properties:
+      json:
+        use:
+          type: headers  # Usa cabeçalhos para inferência de tipo
     listener:
       missing-topics-fatal: false
+
+#Definição de Tópicos
+kafka:
+  topics:
+    user: users-topic     # Tópico para entidade User
+    product: products-topic # Tópico para entidade Product
+    order: orders-topic    # Tópico para entidade Order
+    generic: generic-topic    # Tópico Genérico
+  # Configurações avançadas por consumidor (exemplo)
+  consumers:
+    user:
+      group-id: user-group
+      payload-type: leite.tales.models.User
+      handler-bean: userMessageHandler
+      concurrency: 5
+    product:
+      group-id: product-group
+      max-poll-records: 100
+      payload-type: leite.tales.models.User
+      handler-bean: userMessageHandler
+    order:
+      group-id: order-group
+      auto-offset-reset: latest
+      payload-type: leite.tales.models.User
+      handler-bean: userMessageHandler
+    generic:
+      group-id: generic-group
+      auto-offset-reset: latest
+      payload-type: leite.tales.models.User
+      handler-bean: genericMessageHandler

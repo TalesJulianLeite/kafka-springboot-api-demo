@@ -25,7 +25,7 @@ class KafkaControllerConsumerTest {
     private CircuitBreaker circuitBreaker;
 
     @InjectMocks
-    private KafkaControllerConsumer controller;
+    private KafkaConsumerController controller;
 
     @BeforeEach
     void setUp() {
@@ -38,7 +38,7 @@ class KafkaControllerConsumerTest {
                 .build();
 
         circuitBreaker = CircuitBreaker.of("kafkaConsumer", config);
-        controller = new KafkaControllerConsumer();
+        controller = new KafkaConsumerController();
         controller.setListener(consumerService);
     }
 

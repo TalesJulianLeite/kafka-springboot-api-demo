@@ -1,0 +1,42 @@
+# AMBIENTE DE PRODUÇÃO (prod)
+# =================================================
+spring:
+  name: kafka-springboot-api-demo
+  config:
+    activate:
+      on-profile: prod
+server:
+  port: 8081
+  servlet:
+    context-path: /api
+logging:
+  level:
+    root: INFO
+    org.springframework.web: WARN
+    com.minhaapp: INFO
+  file:
+    name: logs/app.log
+    path: /var/log
+# =================================================
+#datasource:
+#  url: jdbc:postgresql://prod-db:5432/mydb
+#  username: ${DB_USER}
+#  password: ${DB_PASSWORD}
+#  driver-class-name: org.postgresql.Driver
+#  hikari:
+#    maximum-pool-size: 20
+#    connection-timeout: 30000
+
+# Definição de properties JPA
+#jpa:
+#  hibernate:
+#    ddl-auto: validate
+#  show-sql: false
+# =================================================
+
+kafka-application:
+  cache-enabled: true
+  debug-endpoints: false
+  external-service:
+    url: https://production.api.com
+    timeout: 10000
