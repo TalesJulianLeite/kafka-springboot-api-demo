@@ -15,8 +15,16 @@ public class KafkaControllerConsumer {
     private KafkaConsumerService listener;
 
     @GetMapping("/listener")
+    @ResponseBody
     public ResponseEntity<String> read() {
         return ResponseEntity.ok(listener.consumirMensagem());
     }
+
+    @GetMapping("/listener/offset/{id}")
+    @ResponseBody
+    public ResponseEntity<String> readOffset(@PathVariable Long id) {
+        return ResponseEntity.ok(listener.consumirMensagem());
+    }
+
 
 }

@@ -22,15 +22,4 @@ public class KafkaControllerProducer {
         return ResponseEntity.ok("Message sent to Kafka topic successfully");
     }
 
-    @PostMapping("/send-async")
-    public CompletableFuture<Void> sendMessageAsync(@RequestBody String message) {
-        return producerService.sendMessageAsync("my message")
-                .thenAccept(result -> {
-                    System.out.println("Sent to offset: " + result.getRecordMetadata().offset());
-                })
-                .exceptionally(ex -> {
-                    System.err.println("Failed: " + ex.getMessage());
-                    return null;
-                });
-    }
 }

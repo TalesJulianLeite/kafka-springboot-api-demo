@@ -24,11 +24,12 @@ public class KafkaProducerService {
     }
 
     // Existing synchronous method
-    public void sendMessage(String message) {
+    public String sendMessage(String message) {
         log.info("Sending message to topic '{}': {}", topicName, message);
         try {
             kafkaTemplate.send(topicName, message).get();
             log.info("Message sent successfully");
+            return message; // Retorna a mensagem confirmada
         } catch (Exception e) {
             log.error("Failed to send message", e);
             throw new RuntimeException("Failed to send message", e);
@@ -36,10 +37,10 @@ public class KafkaProducerService {
     }
 
     // New asynchronous method returning CompletableFuture
-    public CompletableFuture<SendResult<String, String>> sendMessageAsync(String message) {
+    public CompletableFuture<String> sendMessageAsync(String message) {
         log.info("Asynchronously sending message to topic '{}': {}", topicName, message);
 
-        CompletableFuture<SendResult<String, String>> future = new CompletableFuture<>();
+        CompletableFuture<String> future = new CompletableFuture<>();
 
         kafkaTemplate.send(topicName, message).whenComplete((result, ex) -> {
             if (ex != null) {
@@ -49,7 +50,7 @@ public class KafkaProducerService {
                 log.info("Message sent successfully to partition {} with offset {}",
                         result.getRecordMetadata().partition(),
                         result.getRecordMetadata().offset());
-                future.complete(result);
+                future.complete(String.valueOf(result));
             }
         });
 

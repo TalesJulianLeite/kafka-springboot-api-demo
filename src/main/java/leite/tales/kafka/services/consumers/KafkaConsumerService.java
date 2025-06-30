@@ -10,25 +10,18 @@ import org.springframework.stereotype.Service;
 public class KafkaConsumerService {
 
     private static final Logger log = LoggerFactory.getLogger(KafkaConsumerService.class);
-
-    private static final String topic = "meu-topico";
-    private static final String group = "meu-grupo";
-    private String lastMessage;
+    private static final String TOPIC = "meu-topico";
+    private static final String GROUP = "meu-grupo";
+    private String lastMessage = null;
 
 
     @KafkaListener(topics = "${kafka.topic.name:meu-topico}", groupId = "${kafka.consumer.group:meu-grupo}")
-    public String consumirMensagem() {
-        try {
-            log.info("Consuming message from topic: {}, group: {}, message: {}", topic, group, lastMessage);
-            if (lastMessage == null) {
-                throw new KafkaConsumerException("Message content is null");
-            }
-            return lastMessage;
+    public String consumirMensagem() throws KafkaConsumerException {
+        log.info("Consuming message from topic: {}, group: {}, message: {}", TOPIC, GROUP, lastMessage);
+        if (lastMessage == null) {
+            throw new KafkaConsumerException("Message content is null");
         }
-        catch (Exception e) {
-            log.error("Error while consuming message from topic: {}, group: {}", topic, group, e);
-            throw new KafkaConsumerException("Failed to consume message", e);
-        }
+        return lastMessage;
     }
 
     public String getLastConsumedMessage() {
