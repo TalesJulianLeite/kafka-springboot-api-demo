@@ -1,6 +1,5 @@
 package leite.tales.kafka.controllers.handle;
 
-
 import leite.tales.kafka.exceptions.KafkaConsumerException;
 import leite.tales.kafka.exceptions.KafkaProducerException;
 import org.junit.jupiter.api.Test;
@@ -8,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 
 class GlobalExceptionHandlerTest {
 
