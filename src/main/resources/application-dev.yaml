@@ -29,7 +29,7 @@ jpa:
   show-sql: true
   properties:
     hibernate.format_sql: true
-myapp:
+kafka-springboot-api-demo:
   cache-enabled: false
   debug-endpoints: true
   external-service:

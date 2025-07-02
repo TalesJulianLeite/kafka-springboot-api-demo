@@ -18,14 +18,18 @@ logging:
     name: logs/app.log
     path: /var/log
 # =================================================
-#datasource:
-#  url: jdbc:postgresql://prod-db:5432/mydb
-#  username: ${DB_USER}
-#  password: ${DB_PASSWORD}
-#  driver-class-name: org.postgresql.Driver
-#  hikari:
-#    maximum-pool-size: 20
-#    connection-timeout: 30000
+#spring:
+  #datasource:
+  #  url: jdbc:postgresql://prod-db:5432/mydb
+  #  username: ${DB_USER}
+  #  password: ${DB_PASSWORD}
+  #  driver-class-name: org.postgresql.Driver
+  # Gerenciamento de pool de conexões com hiraki
+  #  hikari:
+    #maximum-pool-size=50:
+    #spring.datasource.hikari.connection-timeout=30000
+    #spring.datasource.hikari.idle-timeout=600000
+    #spring.datasource.hikari.max-lifetime=1800000
 
 # Definição de properties JPA
 #jpa:
@@ -34,7 +38,7 @@ logging:
 #  show-sql: false
 # =================================================
 
-kafka-application:
+kafka-springboot-api-demo:
   cache-enabled: true
   debug-endpoints: false
   external-service:
